@@ -1,0 +1,53 @@
+* {
+  font-family: "Red Hat Text", sans-serif;
+}
+
+.home {
+  margin: 24px;
+  display: flex;
+}
+
+.menuLayout {
+  width: 100%;
+}
+
+.menuSection {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  color: #260f08;
+  font-family: "Red Hat Text", sans-serif;
+  margin-bottom: 32px;
+}
+
+.foodCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(327px, 1fr));
+  gap: 32px 24px;
+}
+
+.foodCart {
+  background-color: #fff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+}
+
+.cartTitle {
+  color: #c73b0f;
+}
+
+.emptyCartImage {
+  width: 128px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  align-self: center;
+}
+
+.emptyCartText {
+  color: #87635a;
+  font-weight: 500;
+  text-align: center;
+}
