@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import FoodCard from "../../FoodCard";
 import styles from "./Home.module.css";
 import cheeseCake from "../../../assets/cheesecake.jpg";
@@ -9,6 +11,65 @@ import chocolateCookies from "../../../assets/chocolate-cookies.jpg";
 import emptyCart from "../../../assets/illustration-empty-cart.svg";
 
 export default function Home() {
+  const [cart, setCart] = useState({});
+  const totalQuantity = Object.values(cart).reduce(
+    (total, item) => total + item.quantity,
+    0,
+  );
+
+  const totalPrice = Object.values(cart).reduce(
+    (total, item) => total + item.price * item.quantity,
+    0,
+  );
+
+  function handleAddToCart(item) {
+    setCart((prevCart) => {
+      const existingItem = prevCart[item.name];
+
+      if (existingItem) {
+        return {
+          ...prevCart,
+          [item.name]: {
+            ...existingItem,
+            quantity: existingItem.quantity + 1,
+          },
+        };
+      }
+
+      return {
+        ...prevCart,
+        [item.name]: {
+          name: item.name,
+          detail: item.detail,
+          price: item.price,
+          quantity: 1,
+        },
+      };
+    });
+  }
+
+  function handleDecreaseQuantity(item) {
+    setCart((prevCart) => {
+      const existingItem = prevCart[item.name];
+
+      if (!existingItem) return prevCart;
+
+      if (existingItem.quantity === 1) {
+        const updatedCart = { ...prevCart };
+        delete updatedCart[item.name];
+        return updatedCart;
+      }
+
+      return {
+        ...prevCart,
+        [item.name]: {
+          ...existingItem,
+          quantity: existingItem.quantity - 1,
+        },
+      };
+    });
+  }
+
   return (
     <div className={styles.home}>
       <div className={styles.menuLayout}>
@@ -20,6 +81,9 @@ export default function Home() {
               name="Cheesecake"
               detail="Classic New York Cheesecake"
               price="20"
+              quantity={cart["Cheesecake"]?.quantity || 0}
+              handleAddToCart={handleAddToCart}
+              handleDecreaseQuantity={handleDecreaseQuantity}
             />
 
             <FoodCard
@@ -27,6 +91,9 @@ export default function Home() {
               name="Cheesecake Brownies"
               detail="Chocolate Cheesecake Brownies"
               price="25"
+              quantity={cart["Cheesecake Brownies"]?.quantity || 0}
+              handleAddToCart={handleAddToCart}
+              handleDecreaseQuantity={handleDecreaseQuantity}
             />
 
             <FoodCard
@@ -34,6 +101,9 @@ export default function Home() {
               name="Brownies"
               detail="Classic Brownies"
               price="15"
+              quantity={cart["Brownies"]?.quantity || 0}
+              handleAddToCart={handleAddToCart}
+              handleDecreaseQuantity={handleDecreaseQuantity}
             />
 
             <FoodCard
@@ -41,6 +111,9 @@ export default function Home() {
               name="Tiramisu"
               detail="Classic Tiramisu"
               price="30"
+              quantity={cart["Tiramisu"]?.quantity || 0}
+              handleAddToCart={handleAddToCart}
+              handleDecreaseQuantity={handleDecreaseQuantity}
             />
 
             <FoodCard
@@ -48,6 +121,9 @@ export default function Home() {
               name="Matcha Cookies"
               detail="White Chocolate Matcha Cookies"
               price="20"
+              quantity={cart["Matcha Cookies"]?.quantity || 0}
+              handleAddToCart={handleAddToCart}
+              handleDecreaseQuantity={handleDecreaseQuantity}
             />
 
             <FoodCard
@@ -55,20 +131,65 @@ export default function Home() {
               name="Chocolate Cookies"
               detail="Classic Chocolate Chip Cookies"
               price="20"
+              quantity={cart["Chocolate Cookies"]?.quantity || 0}
+              handleAddToCart={handleAddToCart}
+              handleDecreaseQuantity={handleDecreaseQuantity}
             />
           </div>
         </section>
 
         <aside className={styles.foodCart}>
-          <h2 className={styles.cartTitle}>Your Cart</h2>
-          <img
-            className={styles.emptyCartImage}
-            src={emptyCart}
-            alt="Empty cart"
-          />
-          <p className={styles.emptyCartText}>
-            Your added items will appear here
-          </p>
+          <h2 className={styles.cartTitle}>Your Cart ({totalQuantity})</h2>
+          <div className={styles.emptyCartText}>
+            {Object.keys(cart).length > 0 ? (
+              <ul>
+                {Object.values(cart).map((item) => (
+                  <>
+                    <li className={styles.cartItem} key={item.name}>
+                      <div className={styles.cartItemInfo}>
+                        <span className={styles.cartItemName}>
+                          {item.detail}
+                        </span>
+
+                        <div className={styles.cartItemDetails}>
+                          <span className={styles.cartItemQuantity}>
+                            {item.quantity}x
+                          </span>
+
+                          <span className={styles.cartItemPrice}>
+                            ${(Number(item.price) * item.quantity).toFixed(2)}
+                          </span>
+                        </div>
+                      </div>
+
+                      <button type="button" className={styles.removeItemButton}>
+                        X
+                      </button>
+                    </li>
+                    <hr className={styles.cartSeparator} />
+                  </>
+                ))}
+                <div className={styles.cartTotal}>
+                  <p className={styles.cartTotalText}>Order Total</p>
+                  <p className={styles.cartTotalPrice}>
+                    ${totalPrice.toFixed(2)}
+                  </p>
+                </div>
+                <button className={styles.confirmOrderButton}>
+                  Confirm Order
+                </button>
+              </ul>
+            ) : (
+              <>
+                <img
+                  className={styles.emptyCartImage}
+                  src={emptyCart}
+                  alt="Empty cart"
+                />
+                <p> Your added items will appear here</p>
+              </>
+            )}
+          </div>
         </aside>
       </div>
     </div>

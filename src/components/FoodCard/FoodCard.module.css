@@ -6,7 +6,8 @@
   position: relative;
 }
 
-.addToCartButton {
+.addToCartButton,
+.quantityContainer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,4 +55,26 @@
 
 .foodPrice {
   color: #c73b0f;
+}
+
+.quantityContainer {
+  justify-content: space-between;
+  background-color: #c73b0f;
+  color: white;
+  font-weight: 600;
+}
+
+.quantityContainer button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
