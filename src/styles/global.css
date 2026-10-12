@@ -18,6 +18,7 @@
 }
 
 body {
+  min-width: 388px;
   background-color: #fcf8f6;
   /* Increase line-height */
   line-height: 1.5;

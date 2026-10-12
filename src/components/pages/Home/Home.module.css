@@ -139,8 +139,4 @@
   .foodCards {
     grid-template-columns: repeat(1, minmax(327px, 1fr));
   }
-
-  .home {
-    min-width: 370px;
-  }
 }
