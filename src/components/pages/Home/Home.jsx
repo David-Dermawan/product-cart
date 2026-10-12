@@ -4,7 +4,7 @@ import FoodCard from "../../FoodCard";
 import styles from "./Home.module.css";
 import cheeseCake from "../../../assets/cheesecake.jpg";
 import cheeseCakeBrownies from "../../../assets/cheesecake-brownies.jpg";
-import brownies from "../../../assets/brownies.jpg";
+import brownies from "../../../assets/classic-brownies.jpg";
 import tiramisu from "../../../assets/tiramisu.jpg";
 import matchaCookies from "../../../assets/matcha-cookies.jpg";
 import chocolateCookies from "../../../assets/chocolate-cookies.jpg";
