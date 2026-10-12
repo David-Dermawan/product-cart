@@ -70,6 +70,14 @@ export default function Home() {
     });
   }
 
+  function handleRemoveItem(item) {
+    setCart((prevCart) => {
+      const updatedCart = { ...prevCart };
+      delete updatedCart[item.name];
+      return updatedCart;
+    });
+  }
+
   return (
     <div className={styles.home}>
       <div className={styles.menuLayout}>
@@ -162,7 +170,11 @@ export default function Home() {
                         </div>
                       </div>
 
-                      <button type="button" className={styles.removeItemButton}>
+                      <button
+                        type="button"
+                        className={styles.removeItemButton}
+                        onClick={() => handleRemoveItem(item)}
+                      >
                         X
                       </button>
                     </li>
