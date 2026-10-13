@@ -1,17 +1,19 @@
 import { useState } from "react";
 
+import { products } from "../../../data/product";
+
 import FoodCard from "../../FoodCard";
 import styles from "./Home.module.css";
-import cheeseCake from "../../../assets/cheesecake.jpg";
-import cheeseCakeBrownies from "../../../assets/cheesecake-brownies.jpg";
-import brownies from "../../../assets/classic-brownies.jpg";
-import tiramisu from "../../../assets/tiramisu.jpg";
-import matchaCookies from "../../../assets/matcha-cookies.jpg";
-import chocolateCookies from "../../../assets/chocolate-cookies.jpg";
 import emptyCart from "../../../assets/illustration-empty-cart.svg";
 
 export default function Home() {
   const [cart, setCart] = useState({});
+  const [activeCategory, setActiveCategory] = useState("Desserts");
+
+  const filteredProducts = products.filter(
+    (product) => product.category === activeCategory,
+  );
+
   const totalQuantity = Object.values(cart).reduce(
     (total, item) => total + item.quantity,
     0,
@@ -86,7 +88,7 @@ export default function Home() {
         (item, index) =>
           `${index + 1}. ${item.name}\n` +
           `   Quantity: ${item.quantity}\n` +
-          `   Price: $${(Number(item.price) * item.quantity).toFixed(2)}`,
+          `   Price: Rp${(Number(item.price) * item.quantity).toLocaleString()}`,
       )
       .join("\n\n");
 
@@ -100,7 +102,7 @@ export default function Home() {
       "",
       "--------------------",
       `Total Items: ${totalQuantity}`,
-      `Total Price: $${totalPrice.toFixed(2)}`,
+      `Total Price: Rp${totalPrice.toLocaleString()}`,
       "--------------------",
       "",
       "Please confirm my order.",
@@ -116,67 +118,34 @@ export default function Home() {
     <div className={styles.home}>
       <div className={styles.menuLayout}>
         <section className={styles.menuSection}>
-          <h1 className={styles.sectionTitle}>Desserts</h1>
+          <nav className={styles.menuNav}>
+            <button
+              className={activeCategory === "Desserts" ? styles.active : ""}
+              onClick={() => setActiveCategory("Desserts")}
+            >
+              Desserts
+            </button>
+            <button
+              className={activeCategory === "Savory" ? styles.active : ""}
+              onClick={() => setActiveCategory("Savory")}
+            >
+              Savory
+            </button>
+          </nav>
+          <h1 className={styles.sectionTitle}>{activeCategory}</h1>
           <div className={styles.foodCards}>
-            <FoodCard
-              img={cheeseCake}
-              name="Cheesecake"
-              detail="Classic New York Cheesecake"
-              price="225000"
-              quantity={cart["Cheesecake"]?.quantity || 0}
-              handleAddToCart={handleAddToCart}
-              handleDecreaseQuantity={handleDecreaseQuantity}
-            />
-
-            <FoodCard
-              img={cheeseCakeBrownies}
-              name="Cheesecake Brownies"
-              detail="Chocolate Cheesecake Brownies"
-              price="80000"
-              quantity={cart["Cheesecake Brownies"]?.quantity || 0}
-              handleAddToCart={handleAddToCart}
-              handleDecreaseQuantity={handleDecreaseQuantity}
-            />
-
-            <FoodCard
-              img={brownies}
-              name="Brownies"
-              detail="Classic Brownies"
-              price="80000"
-              quantity={cart["Brownies"]?.quantity || 0}
-              handleAddToCart={handleAddToCart}
-              handleDecreaseQuantity={handleDecreaseQuantity}
-            />
-
-            <FoodCard
-              img={tiramisu}
-              name="Tiramisu"
-              detail="Classic Tiramisu"
-              price="100000"
-              quantity={cart["Tiramisu"]?.quantity || 0}
-              handleAddToCart={handleAddToCart}
-              handleDecreaseQuantity={handleDecreaseQuantity}
-            />
-
-            <FoodCard
-              img={matchaCookies}
-              name="Matcha Cookies"
-              detail="White Chocolate Matcha Cookies"
-              price="30000"
-              quantity={cart["Matcha Cookies"]?.quantity || 0}
-              handleAddToCart={handleAddToCart}
-              handleDecreaseQuantity={handleDecreaseQuantity}
-            />
-
-            <FoodCard
-              img={chocolateCookies}
-              name="Chocolate Cookies"
-              detail="Classic Chocolate Chip Cookies"
-              price="28000"
-              quantity={cart["Chocolate Cookies"]?.quantity || 0}
-              handleAddToCart={handleAddToCart}
-              handleDecreaseQuantity={handleDecreaseQuantity}
-            />
+            {filteredProducts.map((product) => (
+              <FoodCard
+                key={product.name}
+                img={product.img}
+                name={product.name}
+                detail={product.detail}
+                price={product.price}
+                quantity={cart[product.name]?.quantity || 0}
+                handleAddToCart={handleAddToCart}
+                handleDecreaseQuantity={handleDecreaseQuantity}
+              />
+            ))}
           </div>
         </section>
 

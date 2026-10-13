@@ -16,9 +16,30 @@
 }
 
 .sectionTitle {
+  font-size: 24px;
   color: #260f08;
   font-family: "Red Hat Text", sans-serif;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+}
+
+.menuNav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.menuNav button {
+  border-radius: 35px;
+  padding: 6px 16px;
+  border: 1px solid #e4b9a8;
+  background-color: transparent;
+  color: #78331f;
+}
+
+.menuNav button.active {
+  background-color: #c73b0f;
+  color: #fff;
+  border: none;
 }
 
 .foodCards {
