@@ -6,13 +6,13 @@ import matchaCookies from "../../src/assets/matcha-cookies.jpg";
 import chocolateCookies from "../../src/assets/chocolate-cookies.jpg";
 
 export const products = [
-  {
-    img: cheeseCake,
-    name: "Cheesecake",
-    detail: "Classic New York Cheesecake",
-    price: 225000,
-    category: "Desserts",
-  },
+  // {
+  //   img: cheeseCake,
+  //   name: "Cheesecake",
+  //   detail: "Classic New York Cheesecake",
+  //   price: 225000,
+  //   category: "Desserts",
+  // },
   {
     img: cheeseCakeBrownies,
     name: "Cheesecake Brownies",
