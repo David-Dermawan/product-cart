@@ -78,6 +78,40 @@ export default function Home() {
     });
   }
 
+  function handleConfirmOrder() {
+    const phoneNumber = "6281380418533";
+
+    const orderItems = Object.values(cart)
+      .map(
+        (item, index) =>
+          `${index + 1}. ${item.name}\n` +
+          `   Quantity: ${item.quantity}\n` +
+          `   Price: $${(Number(item.price) * item.quantity).toFixed(2)}`,
+      )
+      .join("\n\n");
+
+    const message = [
+      "DESSERT ORDER",
+      "",
+      "Hello! I would like to place an order.",
+      "",
+      "ORDER DETAILS",
+      orderItems,
+      "",
+      "--------------------",
+      `Total Items: ${totalQuantity}`,
+      `Total Price: $${totalPrice.toFixed(2)}`,
+      "--------------------",
+      "",
+      "Please confirm my order.",
+      "Thank you!",
+    ].join("\n");
+
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, "_blank");
+  }
+
   return (
     <div className={styles.home}>
       <div className={styles.menuLayout}>
@@ -187,7 +221,10 @@ export default function Home() {
                     ${totalPrice.toFixed(2)}
                   </p>
                 </div>
-                <button className={styles.confirmOrderButton}>
+                <button
+                  className={styles.confirmOrderButton}
+                  onClick={handleConfirmOrder}
+                >
                   Confirm Order
                 </button>
               </ul>
