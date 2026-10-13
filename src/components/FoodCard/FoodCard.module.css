@@ -28,6 +28,12 @@
   font-weight: 600;
 }
 
+.addToCartButton:hover {
+  background-color: #e26e4a;
+  color: white;
+  border: none;
+}
+
 .foodImage {
   width: 100%;
   aspect-ratio: 4 / 3;
