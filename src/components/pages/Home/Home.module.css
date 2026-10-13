@@ -150,6 +150,221 @@
   border: none;
 }
 
+/* Dark overlay covering the entire screen */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  background-color: rgb(0 0 0 / 55%);
+  backdrop-filter: blur(3px);
+}
+
+/* Modal container */
+.customerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  padding: 28px;
+  border: 1px solid #eee2d9;
+  border-radius: 20px;
+
+  background-color: #fffdfb;
+  color: #2b211d;
+
+  box-shadow: 0 20px 60px rgb(0 0 0 / 20%);
+  animation: modalAppear 180ms ease-out;
+}
+
+/* Header */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.closeModalButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 50%;
+  background: #f3ebe5;
+  color: #663d2e;
+
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.closeModalButton:hover {
+  background: #e8d9cf;
+}
+
+.modalDescription {
+  margin: -10px 0 0;
+  color: #76675f;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Form fields */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formGroup label {
+  color: #49352b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 14px;
+  border: 1px solid #d8c8bb;
+  border-radius: 10px;
+
+  background-color: #ffffff;
+  color: #2b211d;
+
+  font: inherit;
+  font-size: 14px;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #a3978e;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #a65b3e;
+  box-shadow: 0 0 0 3px rgb(166 91 62 / 12%);
+}
+
+/* Action buttons */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.cancelButton,
+.submitOrderButton {
+  padding: 12px 18px;
+  border-radius: 999px;
+
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.cancelButton {
+  border: 1px solid #d8c8bb;
+  background: transparent;
+  color: #663d2e;
+}
+
+.cancelButton:hover {
+  background: #f3ebe5;
+}
+
+.submitOrderButton {
+  border: 1px solid #663d2e;
+  background: #663d2e;
+  color: #ffffff;
+}
+
+.submitOrderButton:hover {
+  background: #4f2e23;
+}
+
+.cancelButton:active,
+.submitOrderButton:active {
+  transform: scale(0.98);
+}
+
+/* Entrance animation */
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .modalOverlay {
+    padding: 16px;
+  }
+
+  .customerForm {
+    max-height: calc(100dvh - 32px);
+    padding: 22px;
+    border-radius: 16px;
+    gap: 18px;
+  }
+
+  .modalHeader h2 {
+    font-size: 21px;
+  }
+
+  .modalActions {
+    flex-direction: column-reverse;
+  }
+
+  .cancelButton,
+  .submitOrderButton {
+    width: 100%;
+  }
+}
+
 @media (max-width: 1080px) {
   .foodCards {
     grid-template-columns: repeat(2, minmax(327px, 1fr));

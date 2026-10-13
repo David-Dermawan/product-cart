@@ -9,6 +9,9 @@ import emptyCart from "../../../assets/illustration-empty-cart.svg";
 export default function Home() {
   const [cart, setCart] = useState({});
   const [activeCategory, setActiveCategory] = useState("Desserts");
+  const [showCustomerForm, setShowCustomerForm] = useState(false);
+  const [customerName, setCustomerName] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
 
   const filteredProducts = products.filter(
     (product) => product.category === activeCategory,
@@ -81,6 +84,10 @@ export default function Home() {
   }
 
   function handleConfirmOrder() {
+    setShowCustomerForm(true);
+  }
+
+  function handleSendOrder() {
     const phoneNumber = "6281380418533";
 
     const orderItems = Object.values(cart)
@@ -94,16 +101,21 @@ export default function Home() {
 
     const message = [
       "DESSERT ORDER",
+      "==============================",
       "",
-      "Hello! I would like to place an order.",
+      "CUSTOMER DETAILS",
+      "------------------------------",
+      `Name    : ${customerName.trim()}`,
+      `Address : ${customerAddress.trim()}`,
       "",
       "ORDER DETAILS",
+      "------------------------------",
       orderItems,
       "",
-      "--------------------",
-      `Total Items: ${totalQuantity}`,
-      `Total Price: Rp${totalPrice.toLocaleString()}`,
-      "--------------------",
+      "==============================",
+      `Total Items : ${totalQuantity}`,
+      `Total Price : Rp${totalPrice.toLocaleString("id-ID")}`,
+      "==============================",
       "",
       "Please confirm my order.",
       "Thank you!",
@@ -196,6 +208,78 @@ export default function Home() {
                 >
                   Confirm Order
                 </button>
+
+                {showCustomerForm && (
+                  <div className={styles.modalOverlay}>
+                    <form
+                      className={styles.customerForm}
+                      onSubmit={handleSendOrder}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className={styles.modalHeader}>
+                        <h2>Customer Details</h2>
+
+                        <button
+                          type="button"
+                          className={styles.closeModalButton}
+                          onClick={() => setShowCustomerForm(false)}
+                          aria-label="Close modal"
+                        >
+                          &times;
+                        </button>
+                      </div>
+
+                      <p className={styles.modalDescription}>
+                        Please enter your details to complete your order.
+                      </p>
+
+                      <div className={styles.formGroup}>
+                        <label htmlFor="customerName">Full Name</label>
+                        <input
+                          id="customerName"
+                          type="text"
+                          value={customerName}
+                          onChange={(e) => setCustomerName(e.target.value)}
+                          placeholder="Enter your full name"
+                          autoComplete="name"
+                          required
+                        />
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label htmlFor="customerAddress">
+                          Delivery Address
+                        </label>
+                        <textarea
+                          id="customerAddress"
+                          value={customerAddress}
+                          onChange={(e) => setCustomerAddress(e.target.value)}
+                          placeholder="Enter your complete delivery address"
+                          autoComplete="street-address"
+                          rows={4}
+                          required
+                        />
+                      </div>
+
+                      <div className={styles.modalActions}>
+                        <button
+                          type="button"
+                          className={styles.cancelButton}
+                          onClick={() => setShowCustomerForm(false)}
+                        >
+                          Cancel
+                        </button>
+
+                        <button
+                          type="submit"
+                          className={styles.submitOrderButton}
+                        >
+                          Submit Order
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
               </ul>
             ) : (
               <>
