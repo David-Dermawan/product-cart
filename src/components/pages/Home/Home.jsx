@@ -122,7 +122,7 @@ export default function Home() {
               img={cheeseCake}
               name="Cheesecake"
               detail="Classic New York Cheesecake"
-              price="20"
+              price="225000"
               quantity={cart["Cheesecake"]?.quantity || 0}
               handleAddToCart={handleAddToCart}
               handleDecreaseQuantity={handleDecreaseQuantity}
@@ -132,7 +132,7 @@ export default function Home() {
               img={cheeseCakeBrownies}
               name="Cheesecake Brownies"
               detail="Chocolate Cheesecake Brownies"
-              price="25"
+              price="80000"
               quantity={cart["Cheesecake Brownies"]?.quantity || 0}
               handleAddToCart={handleAddToCart}
               handleDecreaseQuantity={handleDecreaseQuantity}
@@ -142,7 +142,7 @@ export default function Home() {
               img={brownies}
               name="Brownies"
               detail="Classic Brownies"
-              price="15"
+              price="80000"
               quantity={cart["Brownies"]?.quantity || 0}
               handleAddToCart={handleAddToCart}
               handleDecreaseQuantity={handleDecreaseQuantity}
@@ -152,7 +152,7 @@ export default function Home() {
               img={tiramisu}
               name="Tiramisu"
               detail="Classic Tiramisu"
-              price="30"
+              price="100000"
               quantity={cart["Tiramisu"]?.quantity || 0}
               handleAddToCart={handleAddToCart}
               handleDecreaseQuantity={handleDecreaseQuantity}
@@ -162,7 +162,7 @@ export default function Home() {
               img={matchaCookies}
               name="Matcha Cookies"
               detail="White Chocolate Matcha Cookies"
-              price="20"
+              price="30000"
               quantity={cart["Matcha Cookies"]?.quantity || 0}
               handleAddToCart={handleAddToCart}
               handleDecreaseQuantity={handleDecreaseQuantity}
@@ -172,7 +172,7 @@ export default function Home() {
               img={chocolateCookies}
               name="Chocolate Cookies"
               detail="Classic Chocolate Chip Cookies"
-              price="20"
+              price="28000"
               quantity={cart["Chocolate Cookies"]?.quantity || 0}
               handleAddToCart={handleAddToCart}
               handleDecreaseQuantity={handleDecreaseQuantity}
@@ -199,7 +199,7 @@ export default function Home() {
                           </span>
 
                           <span className={styles.cartItemPrice}>
-                            ${(Number(item.price) * item.quantity).toFixed(2)}
+                            {`Rp${(Number(item.price) * item.quantity).toLocaleString()}`}
                           </span>
                         </div>
                       </div>
@@ -218,7 +218,7 @@ export default function Home() {
                 <div className={styles.cartTotal}>
                   <p className={styles.cartTotalText}>Order Total</p>
                   <p className={styles.cartTotalPrice}>
-                    ${totalPrice.toFixed(2)}
+                    Rp{totalPrice.toLocaleString()}
                   </p>
                 </div>
                 <button

@@ -37,7 +37,7 @@ export default function FoodCard({
       <div className={styles.foodInfo}>
         <p className={styles.foodName}>{name}</p>
         <p className={styles.foodDetail}>{detail}</p>
-        <p className={styles.foodPrice}>${Number(price).toFixed(2)}</p>
+        <p className={styles.foodPrice}>Rp{Number(price).toLocaleString()}</p>
       </div>
     </div>
   );
